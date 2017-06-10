@@ -8,6 +8,29 @@ bot.on('ready', () => {
     console.log('I am ready!');
 });
 
+const cmds = {
+
+    commandRegEx: /[~](\w+)/,
+
+    ping: function(message, endOfCommand) {
+        message.channel.send('pong');
+        return true;
+    },
+
+    reverse: function(message, endOfCommand) {
+        messageText = message.content.substring(endOfCommand);
+        
+        let reversedText = [];
+        messageText
+            .split('')
+            .map(letter => reversedText.unshift(letter))
+        
+        message.channel.send(reversedText.join(''));
+
+        return true;
+    }
+}
+
 bot.on('message', message => {
     
     // So the bot doesn't respond to itself or other bots.
@@ -18,21 +41,18 @@ bot.on('message', message => {
 
         console.log('Trigger spotted!')
 
-        console.log('Here is what I see is the command: ' + message.content.match(/[~](\w+)/)[1])
+        const messageCommand = message.content.match(cmds.commandRegEx)[1];
 
-        if (!cmds[message.content.match(/[~](\w+)/)[1]](message)) {
+        console.log('Here is what I see is the command: ' + messageCommand)
+
+        // Try to call function in cmds object.
+        if (cmds[messageCommand] != undefined && !cmds[messageCommand](message, messageCommand.length + 1)) {
             console.log('Command executed but did not return true.');
+        } else {
+            message.channel.send('Sorry! Command not found.');
         }
     }
 });
-
-const cmds = {
-
-    ping: function(message) {
-        message.reply('pong');
-        return true;
-    }
-}
 
 // get the token for the bot via user input then login
 const readline = require('readline');
