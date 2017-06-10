@@ -12,6 +12,7 @@ const cmds = {
 
     ping: function(message, endOfCommand) {
         message.channel.send('pong');
+        
         return true;
     },
 
@@ -45,6 +46,8 @@ const cmds = {
 
     help: function(message, endOfCommand) {
         message.channel.send('For a list of commands type: ~list');
+
+        return true;
     }
 }
 
