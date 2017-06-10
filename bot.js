@@ -10,8 +10,6 @@ bot.on('ready', () => {
 
 const cmds = {
 
-    commandRegEx: /[~](\w+)/,
-
     ping: function(message, endOfCommand) {
         message.channel.send('pong');
         return true;
@@ -28,6 +26,25 @@ const cmds = {
         message.channel.send(reversedText.join(''));
 
         return true;
+    },
+
+    list: function(message, endOfCommand) {
+        
+        let replyList = [];
+
+        for (let cmd in cmds) {
+            if (cmds.hasOwnProperty(cmd)) {
+                replyList.push('~' + cmd + '\n');
+            }
+        }
+
+        message.channel.send(replyList.join(''));
+
+        return true;
+    },
+
+    help: function(message, endOfCommand) {
+        message.channel.send('For a list of commands type: ~list');
     }
 }
 
@@ -41,15 +58,15 @@ bot.on('message', message => {
 
         console.log('Trigger spotted!')
 
-        const messageCommand = message.content.match(cmds.commandRegEx)[1];
+        const messageCommand = message.content.match(/[~](\w+)/)[1];
 
         console.log('Here is what I see is the command: ' + messageCommand)
 
         // Try to call function in cmds object.
-        if (cmds[messageCommand] != undefined && !cmds[messageCommand](message, messageCommand.length + 1)) {
-            console.log('Command executed but did not return true.');
-        } else {
+        if (cmds[messageCommand] === undefined) {
             message.channel.send('Sorry! Command not found.');
+        } else if (!cmds[messageCommand](message, messageCommand.length + 1)) {
+            console.log('Command executed but did not return true.');
         }
     }
 });
