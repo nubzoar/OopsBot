@@ -10,44 +10,61 @@ bot.on('ready', () => {
 
 const cmds = {
 
-    ping: function(message, endOfCommand) {
-        message.channel.send('pong');
-        
-        return true;
-    },
-
-    reverse: function(message, endOfCommand) {
-        messageText = message.content.substring(endOfCommand);
-        
-        let reversedText = [];
-        messageText
-            .split('')
-            .map(letter => reversedText.unshift(letter))
-        
-        message.channel.send(reversedText.join(''));
-
-        return true;
-    },
-
-    list: function(message, endOfCommand) {
-        
-        let replyList = [];
-
-        for (let cmd in cmds) {
-            if (cmds.hasOwnProperty(cmd)) {
-                replyList.push('~' + cmd + '\n');
-            }
+    ping: {
+        default: function(message, endOfCommand) {
+            message.channel.send('pong');
+            
+            return true;
+        },
+        help: function(message, endOfCommand) {
+            message.channel.send('The ping command simply makes the bot respond with "pong".');
         }
-
-        message.channel.send(replyList.join(''));
-
-        return true;
     },
 
-    help: function(message, endOfCommand) {
-        message.channel.send('For a list of commands type: ~list');
+    reverse: {
+        default: function(message, endOfCommand) {
+            messageText = message.content.substring(endOfCommand);
+            
+            let reversedText = [];
+            messageText
+                .split('')
+                .map(letter => reversedText.unshift(letter))
+            
+            message.channel.send(reversedText.join(''));
 
-        return true;
+            return true;
+        },
+        help: function(message, endOfCommand) {
+            message.channel.send('The reverse command makes the bot respond with your text reversed.');
+        }
+    },
+
+    list: {
+        default: function(message, endOfCommand) {
+        
+            let replyList = [];
+
+            for (let cmd in cmds) {
+                if (cmds.hasOwnProperty(cmd)) {
+                    replyList.push('~' + cmd + '\n');
+                }
+            }
+
+            message.channel.send(replyList.join(''));
+
+            return true;
+        },
+        help: function(message, endOfCommand) {
+            message.channel.send('The list command makes the bot respond with a list of all commands it knows.');
+        }
+    },
+
+    help: {
+        default: function(message, endOfCommand) {
+            message.channel.send('For a list of commands type: ~list');
+
+            return true;
+        }
     }
 }
 
@@ -62,14 +79,37 @@ bot.on('message', message => {
         console.log('Trigger spotted!')
 
         const messageCommand = message.content.match(/[~](\w+)/)[1];
+        const endOfCommand = messageCommand.length + 1;
 
         console.log('Here is what I see is the command: ' + messageCommand)
 
-        // Try to call function in cmds object.
-        if (cmds[messageCommand] === undefined) {
+        if (cmds[messageCommand === undefined]) {
             message.channel.send('Sorry! Command not found.');
-        } else if (!cmds[messageCommand](message, messageCommand.length + 1)) {
-            console.log('Command executed but did not return true.');
+        } else {
+            // Check for argument "-"
+            if (message.content.substring(endOfCommand, endOfCommand + 1) === '-') {
+
+                console.log('Argument spotted!');
+
+                const messageArgument = message.content.match(/[-](\w+)/)[1];
+
+                console.log('Here is what I see is the argument: ' + messageArgument)
+
+                // Try to call cmd with argument
+                if (cmds[messageCommand][messageArgument] === undefined) {
+                    message.channel.send('Sorry! Invalid argument.');
+                } else if (!cmds[messageCommand][messageArgument](message, endOfCommand + messageArgument.length + 1)) {
+                    console.log('Command executed but did not return true.');
+                }
+
+            } else {
+                // Try to call default cmd with no arguments.
+                if (cmds[messageCommand].default === undefined) {
+                    message.channel.send('Sorry! Something went wrong. Command has no default function.');
+                } else if (!cmds[messageCommand].default(message, endOfCommand)) {
+                    console.log('Command executed but did not return true.');
+                }
+            }
         }
     }
 });
