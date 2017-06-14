@@ -23,7 +23,7 @@ const cmds = {
 
     reverse: {
         default: function(message, endOfCommand) {
-            messageText = message.content.substring(endOfCommand);
+            let messageText = message.content.substring(endOfCommand);
             
             let reversedText = [];
             messageText
@@ -79,7 +79,7 @@ bot.on('message', message => {
         console.log('Trigger spotted!')
 
         const messageCommand = message.content.match(/[~](\w+)/)[1];
-        const endOfCommand = messageCommand.length + 1;
+        const endOfCommand = messageCommand.length + 2;
 
         console.log('Here is what I see is the command: ' + messageCommand)
 
