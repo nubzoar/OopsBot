@@ -17,7 +17,7 @@ const cmds = {
             return true;
         },
         help: function(message, endOfCommand) {
-            message.channel.send('The ping command simply makes the bot respond with "pong".');
+            message.channel.send('The ping command simply makes me respond with "pong".');
         }
     },
 
@@ -35,7 +35,7 @@ const cmds = {
             return true;
         },
         help: function(message, endOfCommand) {
-            message.channel.send('The reverse command makes the bot respond with your text reversed.');
+            message.channel.send('The reverse command makes me respond with your text reversed.');
         }
     },
 
@@ -55,7 +55,7 @@ const cmds = {
             return true;
         },
         help: function(message, endOfCommand) {
-            message.channel.send('The list command makes the bot respond with a list of all commands it knows.');
+            message.channel.send('The list command makes me respond with a list of all commands it knows.');
         }
     },
 
@@ -73,8 +73,8 @@ bot.on('message', message => {
     // So the bot doesn't respond to itself or other bots.
     if (message.author.bot) return;
 
-    // Check for the command trigger '~'
-    if (message.content.substring(0, 1) === '~') {
+    // Check for the command trigger '.'
+    if (message.content.substring(0, 1) === '.') {
 
         console.log('Trigger spotted!')
 
