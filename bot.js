@@ -46,7 +46,7 @@ const cmds = {
 
             for (let cmd in cmds) {
                 if (cmds.hasOwnProperty(cmd)) {
-                    replyList.push('~' + cmd + '\n');
+                    replyList.push('.' + cmd + '\n');
                 }
             }
 
@@ -61,7 +61,7 @@ const cmds = {
 
     help: {
         default: function(message, endOfCommand) {
-            message.channel.send('For a list of commands type: ~list');
+            message.channel.send('For a list of commands type: .list');
 
             return true;
         }
