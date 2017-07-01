@@ -78,7 +78,7 @@ bot.on('message', message => {
 
         console.log('Trigger spotted!')
 
-        const messageCommand = message.content.match(/[~](\w+)/)[1];
+        const messageCommand = message.content.match(/[.](\w+)/)[1];
         const endOfCommand = messageCommand.length + 2;
 
         console.log('Here is what I see is the command: ' + messageCommand)
