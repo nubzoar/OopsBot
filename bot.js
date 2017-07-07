@@ -20,6 +20,31 @@ const cmds = {
             message.channel.send('The ping command simply makes me respond with "pong".');
         }
     },
+    
+    confuse: {
+        default: function(message, endOfCommand) {
+            let messageText = message.content.substring(endOfCommand);
+
+            let confusedText = [];
+            let count = 0;
+
+            messageText
+                .split('')
+                .map(function(character) {
+                    if (count % 2 === 0) {
+                        confusedText.push(character.toUpperCase());
+                    } else {
+                        confusedText.push(character.toLowerCase());
+                    }
+                    count++;
+                })
+
+            message.channel.send(confusedText.join(''));
+
+            return true
+
+        }
+    },
 
     reverse: {
         default: function(message, endOfCommand) {
