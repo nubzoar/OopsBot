@@ -26,17 +26,15 @@ const cmds = {
             let messageText = message.content.substring(endOfCommand);
 
             let confusedText = [];
-            let count = 0;
 
             messageText
                 .split('')
-                .map(function(character) {
-                    if (count % 2 === 0) {
+                .map(function(character, index) {
+                    if (index % 2 === 0) {
                         confusedText.push(character.toUpperCase());
                     } else {
                         confusedText.push(character.toLowerCase());
                     }
-                    count++;
                 })
 
             message.channel.send(confusedText.join(''));
