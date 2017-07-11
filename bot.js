@@ -106,7 +106,7 @@ bot.on('message', message => {
 
         console.log('Here is what I see is the command: ' + messageCommand)
 
-        if (cmds[messageCommand === undefined]) {
+        if (cmds[messageCommand] === undefined) {
             message.channel.send('Sorry! Command not found.');
         } else {
             // Check for argument "-"
