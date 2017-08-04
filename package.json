@@ -1,0 +1,22 @@
+{
+  "name": "oopsbot",
+  "version": "0.1.0",
+  "description": "Club Oops Discord server bot.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nubzoar/OopsBot.git"
+  },
+  "author": "Club Oops",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nubzoar/OopsBot/issues"
+  },
+  "homepage": "https://github.com/nubzoar/OopsBot#readme",
+  "dependencies": {
+    "discord.js": "^11.1.0"
+  }
+}
