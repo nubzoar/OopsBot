@@ -1,7 +1,7 @@
 {
   "name": "oopsbot",
-  "version": "0.1.0",
-  "description": "Club Oops Discord server bot.",
+  "version": "0.0.1",
+  "description": "The Official Club OOPS Discord Bot.",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,13 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/nubzoar/OopsBot.git"
   },
-  "author": "Club Oops",
-  "license": "ISC",
+  "author": "Devon Thompson",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/nubzoar/OopsBot/issues"
   },
   "homepage": "https://github.com/nubzoar/OopsBot#readme",
   "dependencies": {
-    "discord.js": "^11.1.0"
+    "@types/node": "^8.9.1",
+    "discord.js": "^11.3.0"
   }
 }

@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "removeComments": true,
+        "outFile": "bot.js"
+    },
+    "include": [
+        "typescript/*"
+    ]
+}
